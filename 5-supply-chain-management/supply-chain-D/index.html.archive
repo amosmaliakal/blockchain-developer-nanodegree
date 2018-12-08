@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fair Trade Coffee</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <hr>
+            <h1 style="text-align: center;">Fair Trade Coffee</h1>
+            <hr>
+            <div id="ftc-view">
+            </div>
+        </div>
+        
+        <div id="ftc-intro" class="ftc-intro">
+
+            <h2>Supply Chain authenticity management with Blockchain</h2>
+            <p>Utilizing blockchain technologies, we can take advantage of the immutability of a public ledger to prove authenticity of the coffee beans as the product navigates down the supply chain.</p>
+          </div>
+
+        <div id="ftc-process">
+            <button class="btn-harvest"     style="background-color:lightgray; width: 120px;"       type="button" data-id="1">1. Harvest</button>
+            <button class="btn-process"     style="background-color:slateblue; width: 120px;"       type="button" data-id="2">2. Process</button>
+            <button class="btn-pack"        style="background-color:mediumseagreen; width: 120px;"  type="button" data-id="3">3. Pack</button>
+            <button class="btn-forsale"     style="background-color:orange; width: 120px;"          type="button" data-id="4">4. ForSale</button>
+            <button class="btn-buy"         style="background-color:tomato; width: 120px;"          type="button" data-id="5">5. Buy</button>
+            <button class="btn-ship"        style="background-color:dodgerblue; width: 120px;"      type="button" data-id="6">6. Ship</button>
+            <button class="btn-receive"     style="background-color:gray; width: 120px;"            type="button" data-id="7">7. Receive</button>
+            <button class="btn-purchase"    style="background-color:violet; width: 120px;"          type="button" data-id="8">8. Purchase</button>
+            <br>
+            <button class="btn-fetchOne"    style="background-color:steelblue; width: 120px;"       type="button" data-id="9">9. Fetch One</button>
+            <button class="btn-fetchTwo"    style="background-color:slategrey; width: 120px;"       type="button" data-id="10">10. Fetch Two</button>
+            <br><br><br>
+        </div>
+
+        <div id="ftc-harvest">
+            <hr>
+            <h3>Front End: Form Entry</h2>
+            SKU: <input type="number" id="sku" name="sku" value=1><br>
+            UPC: <input type="number" id="upc" name="upc" value=1><br>
+            Current Owner ID: <input type="text" id="ownerID" name="ownerID" value="0x963865f57804b38459dd4b2da2f760211a200438" size="50"><br>
+            Farmer ID: <input type="text" id="originFarmerID" name="originFarmerID" value="0x99c289eb2aacec289631a5ddf62cf27a63d4494f" size="50"><br>
+            Farm Name: <input type="text" id="originFarmName" name="originFarmName" value="John Doe"><br>
+            Farm Information: <input type="text" id="originFarmInformation" name="originFarmInformation" value="Yarra Valley"><br>
+            Farm Latitude: <input type="text" id="originFarmLatitude" name="originFarmLatitude" value="-38.239770"><br>
+            Farm Longitude: <input type="text" id="originFarmLongitude" name="originFarmLongitude" value="144.341490"><br>
+            Product Notes: <input type="text" id="productNotes" name="productNotes" value="Best beans for Espresso" size="60"><br>
+            Product Price: <input type="number" id="productPrice" name="productPrice" value=1>ETH<br>
+            Distributor ID: <input type="text" id="distributorID" name="distributorID" value="0xf1b1bcd24dad92303dd9fe78be639f7bcf9c238d" size="50"><br>
+            Retailer ID: <input type="text" id="retailerID" name="retailerID" value="0x0fb2bfefd526966c87efa19f6693d50971763fc2" size="50"><br>
+            Distributor ID: <input type="text" id="consumerID" name="consumerID" value="0x5d777e9127b28fb119e81a6304278a0a21bef1c4" size="50"><br>
+            <br>
+            <hr>
+        </div>
+
+        <h3>Transaction History: Events - Transaction Hash<span id="ftc-history"></span></h3>
+        
+        <div>
+            <ul id="ftc-events">
+              <!-- Events will appear here from app.js -->
+            </ul>
+            <br>
+            <hr>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- <script src="js/web3.min.js"></script> -->
+        <script src="js/truffle-contract.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
