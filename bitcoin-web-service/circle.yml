@@ -1,0 +1,14 @@
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    - make build
+
+## Customize deployment commands
+deployment:
+  production:
+    branch: master
+    command: make deploy
+

@@ -1,0 +1,39 @@
+defaults: &defaults
+  working_directory: ~/berlioz-app
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    docker:
+      - image: circleci/python:2.7-jessie-browsers
+    steps:
+      - setup_remote_docker
+
+      - checkout
+
+      - run:
+          name: Login to docker using shared credentials
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+      - run:
+          name: Build the docker image
+          command: make build
+
+      - run:
+          name: Publish the docker image
+          command: make push
+
+      - run:
+          name: Deploy staging
+          # finish the command with true so it doesn't fail the build just for not being on an autostage branch
+          command: |
+            [[ ${CIRCLE_BRANCH} =~ ^develop$|.*--autostage$ ]] && make deploy-staging
+            true
+
+      - run:
+          name: Deploy production
+          # finish the command with true so it doesn't fail the build just for not being on the master branch
+          command: |
+            [[ ${CIRCLE_BRANCH} == master ]] && make deploy
+            true
