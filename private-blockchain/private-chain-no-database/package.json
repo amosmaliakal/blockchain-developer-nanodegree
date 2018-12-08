@@ -1,0 +1,13 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "Private blockchain without consensus",
+  "main": "simpleChain.js",
+  "scripts": {
+    "test": "node simpleChain-test.js"
+  },
+  "author": "Brandy Lee Camacho",
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  }
+}
