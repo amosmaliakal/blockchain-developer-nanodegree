@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Wallet Address Verification Service</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script>
+    // Add a global error event listener early on in the page load, to help ensure that browsers
+    // which don't support specific functionality still end up displaying a meaningful message.
+    window.addEventListener('error', function(error) {
+      if (ChromeSamples && ChromeSamples.setStatus) {
+        ChromeSamples.setStatus(error.message + ' (Your browser may not support this feature.)');
+        error.preventDefault();
+      }
+    });
+    </script>
+		<script src="assets/js/bitcoin-message.js"></script>
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="index.html">Bitcoin <span>proof of address ownership</span></a></div>
+			</header>
+
+		<!-- Body -->
+			<div id="verifyForm" class="wrapper">
+				<div class="inner">
+					<section>
+						<div class="box">
+							<div class="content">
+								<h2 class="align-center">Blockchain Identity Verification</h2>
+								<h4 class="align-center">Prove Bitcoin address ownership</h4>
+								<hr />
+									<div class="field half first">
+										<label for="name">Wallet Address</label>
+										<input autofocus id="walletText" type="text" placeholder="13AkKqw1GsD4aDHjn43d5n4nVw3Fo65arj">
+									</div>
+									<div class="field" style="padding-top:1em">
+										 <label for="message">Message to be signed by your wallet</label>
+										 <textarea name="message" id="messageOutput" rows="1" placeholder="13AkKqw1GsD4aDHjn43d5n4nVw3Fo65arj: Udacity rocks!"></textarea>
+									 </div>
+
+									 <script>
+									 //Polyfill for requestAnimationFrame | http://jsfiddle.net/d131/FXXDb/1/
+									 window.requestAnimationFrame = (function(){
+										 return  window.requestAnimationFrame       ||
+														 window.webkitRequestAnimationFrame ||
+														 window.mozRequestAnimationFrame    ||
+														 window.oRequestAnimationFrame      ||
+														 window.msRequestAnimationFrame     ||
+														 function(/* function */ callback, /* DOMElement */ element){
+															 window.setTimeout(callback, 1000 / 60);
+														 };
+									 })();
+
+									 //Get a reference to the input and output
+									 var input = document.getElementById("walletText");
+									 var output = document.getElementById("messageOutput");
+
+									 //Set up a requestAnimationFrame loop
+									 function update () {
+										 requestAnimationFrame(update);
+
+										 //Change the output to match the input
+										 if (input.value<10) {
+										 	output.placeholder = "Please enter wallet address to generate message";
+										} else{
+										 output.value = input.value+": Udacity rocks!";
+									 	}
+									 }
+									 update();
+									 </script>
+								 <div class="field" style="padding-bottom:2em; padding-top:1em">
+										<label for="signature">Signature</label>
+										<textarea name="signature" id="signatureText" rows="6" placeholder="H2R4vFgIt3n+VXBoVg5lKL8p5tUBQrmvu+ZuzqIP05OnXibqY6PTMwebR2pg/QJqe+mDiObDd1H3LYgle3syohI="></textarea>
+									</div>
+                     <!-- <textarea name="signature" id="signatureText" rows="6" placeholder="Server Response Console"></textarea> -->
+                  <div class="field" style="width: 100%;background:#2d2d2d; color:#00ce00; font-size:90%;overflow: hidden;">
+                    <div id="content" style="width: 100% !important"></div>
+                    <div id="status" style="width: 100% !important"></div>
+                    <div id="log" style="width: 100% !important"></div>
+                  </div>
+									<!-- Chrome samples for server response -->
+									<script>
+							      var ChromeSamples = {
+							        log: function() {
+							          var line = Array.prototype.slice.call(arguments).map(function(argument) {
+							            return typeof argument === 'string' ? argument : JSON.stringify(argument);
+							          }).join(' ');
+							          document.querySelector('#log').textContent = line + '\n';
+							        },
+
+							        clearLog: function() {
+							          document.querySelector('#log').textContent = '';
+							        },
+
+							        setStatus: function(status) {
+							          document.querySelector('#status').textContent = status;
+							        },
+
+							        setContent: function(newContent) {
+							          var content = document.querySelector('#content');
+							          while(content.hasChildNodes()) {
+							            content.removeChild(content.lastChild);
+							          }
+							          content.appendChild(newContent);
+							        }
+							      };
+							    </script>
+                  <div style="padding-top:2em" class="align-center">
+									<button class="button special" >Validate wallet</button>
+                </div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+
+			<section id="one" class="wrapper style2">
+				<div class="inner">
+					<div class="box">
+						<div class="image fit">
+							<img src="images/pic01.jpg" alt="" />
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<h2>Message signing</h2>
+								<p>Address ownership verification service</p>
+							</header>
+							<hr />
+							<p>Message signing is a way you can prove you control a particular address, and demonstrate you have ownership.</p>
+							<p>You will need:</p>
+							<ul>
+								<li>Compatible wallet client</li>
+								<ul>
+									<li>Use Bitcoin’s original single-signature P2PKH address (address with prefix 1). <i>Verification service is not compatible with <a href="https://bitcoincore.org/en/segwit_wallet_dev/">Segregated Witness, or SegWit (address with prefix 3)</a></i></li>
+									<li>Ability to generate new wallet addresses</li>
+									<li>Support <a href="https://bitcoin.org/en/developer-reference#signmessage">message signing</a></li>
+								</ul></ul>
+							<p>Verification service uses the <a href="https://bitcoin.org/en/developer-reference#verifymessage">verifymessage</a> RPC command to verify a signed message.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="four" class="wrapper style3">
+				<div class="inner">
+
+					<header class="align-center">
+						<h2>Compatible wallet Example</h2>
+						<table>
+							<tr>
+								<td>
+									<h3><a href="https://electrum.org">Electrum v3.1.1</a></h3>
+									<p>Electrum’s focus is speed, with low resource usage and simplifying Bitcoin. Startup times are instant because it operates in conjunction with high-performance servers that handle the most complicated parts of the Bitcoin system.<p>
+										<p><a href="https://electrum.org/#download">Download Electrum</a> || <a href="http://docs.electrum.org/">View the docs</a></p>
+								</td>
+							</tr>
+								<tr>
+								<td>
+									<img src="images/messageSigning.jpeg">
+								</td>
+							</tr>
+						</table>
+					</header>
+
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper">
+			</footer>
+
+		<!-- Scripts -->
+			<script>
+
+	    // Wallet Address Verification function
+			async function verifyAddressOwnership(message, address, signature){
+				let result;
+				try {
+					result = await verifyAddressSignature(message, address, signature);
+				} catch (e) {
+					result = e.message;
+				} finally {
+					return result;
+				}
+			}
+
+			function verifyWalletAddress(message, address, signature) {
+			  ChromeSamples.log('Validating...');
+				// Wallet address and signature length validation
+				if (address.length<26||address.length>35) {
+					ChromeSamples.log('Wallet address invalid. Learn more: https://en.bitcoin.it/wiki/Address');
+				} else if (signature.length<58) {
+				// Signature length validation > 58: https://en.bitcoin.it/wiki/Elliptic_Curve_Digital_Signature_Algorithm
+				ChromeSamples.log('Signature invalid. Learn more: https://en.bitcoin.it/wiki/Elliptic_Curve_Digital_Signature_Algorithm');
+				}	else {
+
+			  verifyAddressOwnership(message, address, signature).then(function(data) {
+			    ChromeSamples.log('Server Response:', data);
+			    if (data===true) {
+			      ChromeSamples.log('Signature valid! Create a new RTF text file, document your wallet address and message signature. Next, submit text file to classroom to complete your project');
+			    } else if (data===false) {
+						ChromeSamples.log('Failed message signature: Invalid');
+					} else if ('Invalid checksum') {
+						ChromeSamples.log('Validation failed');
+					}else {
+						ChromeSamples.log(data);
+					}
+			  });
+			}
+
+			}
+
+			function submit() {
+			  var walletAddress = document.getElementById('walletText').value;
+			  var signature = document.getElementById('signatureText').value;
+				var message = document.getElementById('messageOutput').value;
+			  if (content) {
+			    verifyWalletAddress(message, walletAddress, signature);
+			  } else {
+			    ChromeSamples.log('Please enter wallet address and message signature.');
+			  }
+			}
+
+			var submitBtn = document.querySelector('button');
+			submitBtn.addEventListener('click', submit);
+			</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "bitcoin-message-validation",
+  "version": "1.0.0",
+  "description": "Bitcoin message validation web service utilizing bitcoinjs-lib and bitcoinjs-message for node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udacity/bitcoin-message-validation.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "blockchain",
+    "message",
+    "validation",
+    "signature"
+  ],
+  "author": "Brandy Lee Camacho",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/udacity/bitcoin-message-validation/issues"
+  },
+  "homepage": "https://github.com/udacity/bitcoin-message-validation#readme",
+  "dependencies": {
+    "hapi": "^17.5.2",
+    "inert": "^5.1.0",
+    "path": "^0.12.7"
+  }
+}
